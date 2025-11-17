@@ -1,13 +1,13 @@
 @let currentZone = zone();
 @let classes = statusClasses();
 
-<div class="bg-slate-800 rounded-lg shadow-xl border-t-4 transition-all duration-300 hover:shadow-cyan-500/20 hover:scale-[1.02] flex flex-col" [class]="classes.border">
+<div class="bg-white rounded-lg shadow-lg border-t-4 transition-all duration-300 hover:shadow-cyan-500/10 hover:scale-[1.02] flex flex-col" [class]="classes.border">
   <div class="p-5 flex-grow">
     
     <div class="flex justify-between items-start">
       <div>
-        <h3 class="font-bold text-lg text-slate-100">{{ currentZone.cropType }}</h3>
-        <p class="text-sm text-slate-400">{{ currentZone.zoneId }}</p>
+        <h3 class="font-bold text-lg text-slate-900">{{ currentZone.cropType }}</h3>
+        <p class="text-sm text-slate-500">{{ currentZone.zoneId }}</p>
       </div>
       <div class="flex items-center justify-center h-10 w-10 rounded-lg" [class]="classes['icon-bg']">
         <!-- Water Drop Icon -->
@@ -18,25 +18,25 @@
     </div>
     
     <div class="my-4 text-center">
-      <span class="text-6xl font-light tracking-tight text-white">{{ currentZone.soilHumidityPercent() }}</span>
-      <span class="text-2xl text-slate-400 align-baseline">%</span>
+      <span class="text-6xl font-light tracking-tight text-slate-900">{{ currentZone.soilHumidityPercent() }}</span>
+      <span class="text-2xl text-slate-500 align-baseline">%</span>
       <p class="text-sm font-semibold mt-1" [class]="classes.text">{{ currentZone.status() }}</p>
     </div>
     
-    <div class="w-full bg-slate-700 rounded-full h-2.5">
+    <div class="w-full bg-slate-200 rounded-full h-2.5">
       <div class="h-2.5 rounded-full transition-all duration-500" [class]="classes.bg" [style]="humidityPercentageStyle()"></div>
     </div>
     
     <div class="mt-4">
       <app-sparkline [data]="currentZone.humidityHistory()" [strokeClass]="classes.sparkline"></app-sparkline>
-      <p class="text-center text-xs text-slate-500 -mt-1">Historial de humedad (últimas 7 lecturas)</p>
+      <p class="text-center text-xs text-slate-600 -mt-1">Historial de humedad (últimas 7 lecturas)</p>
     </div>
 
   </div>
 
   <!-- Footer with additional info -->
-  <div class="bg-slate-800/50 border-t border-slate-700/50 rounded-b-lg p-3 mt-4 text-xs">
-    <div class="flex justify-between items-center text-slate-400">
+  <div class="bg-slate-50 border-t border-slate-200 rounded-b-lg p-3 mt-4 text-xs">
+    <div class="flex justify-between items-center text-slate-600">
         <div class="flex items-center gap-2">
             <!-- Temperature Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,7 +46,7 @@
             <span>{{ currentZone.ambientTemperatureC() }}°C</span>
         </div>
         @if (currentZone.isWatering()) {
-          <div class="flex items-center gap-2 text-blue-400 animate-pulse">
+          <div class="flex items-center gap-2 text-blue-500 animate-pulse">
             <!-- Watering Icon -->
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 16 16">
               <path d="M.246 6.333a.5.5 0 0 1 .496-.467l5.96-.265a.5.5 0 0 1 .491.492v5.966a.5.5 0 0 1-.986.074l-1.028-3.086-2.03-2.03-3.087-1.028a.5.5 0 0 1-.074-.986zm12.353-3.15a.5.5 0 0 1 .693.693l-4.146 4.147a.5.5 0 0 1-.693-.693z"/>
