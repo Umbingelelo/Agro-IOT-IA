@@ -1,0 +1,5 @@
+{
+  "name": "Dashboard de Humedad para Centros de Cultivo",
+  "description": "Un panel de control de IoT para monitorear en tiempo real los niveles de humedad en varios centros de cultivo en Chile. Proporciona una visión general y alertas basadas en umbrales de humedad.",
+  "requestFramePermissions": []
+}

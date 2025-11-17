@@ -1,0 +1,64 @@
+@let currentZone = zone();
+@let classes = statusClasses();
+
+<div class="bg-slate-800 rounded-lg shadow-xl border-t-4 transition-all duration-300 hover:shadow-cyan-500/20 hover:scale-[1.02] flex flex-col" [class]="classes.border">
+  <div class="p-5 flex-grow">
+    
+    <div class="flex justify-between items-start">
+      <div>
+        <h3 class="font-bold text-lg text-slate-100">{{ currentZone.cropType }}</h3>
+        <p class="text-sm text-slate-400">{{ currentZone.zoneId }}</p>
+      </div>
+      <div class="flex items-center justify-center h-10 w-10 rounded-lg" [class]="classes['icon-bg']">
+        <!-- Water Drop Icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" [class]="classes.text" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.8 19.2c.4.5 1 .8 1.7.8s1.3-.3 1.7-.8c.4-.5.7-1.1.7-1.7 0-.6-.3-1.2-.7-1.7l-1.7-1.7-1.7 1.7c-.4.5-.7 1.1-.7 1.7 0 .6.3 1.2.7 1.7zM12 3.2c-3.2 0-6 2.8-6 6.2 0 1.9.9 3.6 2.3 4.7l3.7 3.7 3.7-3.7c1.4-1.1 2.3-2.8 2.3-4.7 0-3.4-2.8-6.2-6-6.2z"/>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="my-4 text-center">
+      <span class="text-6xl font-light tracking-tight text-white">{{ currentZone.soilHumidityPercent() }}</span>
+      <span class="text-2xl text-slate-400 align-baseline">%</span>
+      <p class="text-sm font-semibold mt-1" [class]="classes.text">{{ currentZone.status() }}</p>
+    </div>
+    
+    <div class="w-full bg-slate-700 rounded-full h-2.5">
+      <div class="h-2.5 rounded-full transition-all duration-500" [class]="classes.bg" [style]="humidityPercentageStyle()"></div>
+    </div>
+    
+    <div class="mt-4">
+      <app-sparkline [data]="currentZone.humidityHistory()" [strokeClass]="classes.sparkline"></app-sparkline>
+      <p class="text-center text-xs text-slate-500 -mt-1">Historial de humedad (últimas 7 lecturas)</p>
+    </div>
+
+  </div>
+
+  <!-- Footer with additional info -->
+  <div class="bg-slate-800/50 border-t border-slate-700/50 rounded-b-lg p-3 mt-4 text-xs">
+    <div class="flex justify-between items-center text-slate-400">
+        <div class="flex items-center gap-2">
+            <!-- Temperature Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.5 21a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v13.5" />
+            </svg>
+            <span>{{ currentZone.ambientTemperatureC() }}°C</span>
+        </div>
+        @if (currentZone.isWatering()) {
+          <div class="flex items-center gap-2 text-blue-400 animate-pulse">
+            <!-- Watering Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M.246 6.333a.5.5 0 0 1 .496-.467l5.96-.265a.5.5 0 0 1 .491.492v5.966a.5.5 0 0 1-.986.074l-1.028-3.086-2.03-2.03-3.087-1.028a.5.5 0 0 1-.074-.986zm12.353-3.15a.5.5 0 0 1 .693.693l-4.146 4.147a.5.5 0 0 1-.693-.693z"/>
+            </svg>
+            <span>Regando</span>
+          </div>
+        } @else {
+          <div class="flex items-center gap-2">
+            <span>Riego Inactivo</span>
+          </div>
+        }
+    </div>
+  </div>
+
+</div>
